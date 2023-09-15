@@ -1,6 +1,7 @@
 package by.Yandr2022.springlearn.controllers;
 
 import by.Yandr2022.springlearn.models.Person;
+import by.Yandr2022.springlearn.services.ItemService;
 import by.Yandr2022.springlearn.services.PeopleService;
 import by.Yandr2022.springlearn.util.PersonValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +17,23 @@ import javax.validation.Valid;
 public class PeopleController {
 
     private final PeopleService peopleService;
+    private final ItemService itemService;
     private final PersonValidator personValidator;
 
     @Autowired
-    public PeopleController(PeopleService peopleService, PersonValidator personValidator) {
+    public PeopleController(PeopleService peopleService, ItemService itemService, PersonValidator personValidator) {
         this.peopleService = peopleService;
+        this.itemService = itemService;
         this.personValidator = personValidator;
     }
 
     @GetMapping()
     public String index(Model model) {
         model.addAttribute("people", peopleService.findAll());
+
+        itemService.findAllByName("Airpods");
+        itemService.findAllByPerson(peopleService.findAll().get(0));
+        peopleService.test();
         return "people/index";
     }
 

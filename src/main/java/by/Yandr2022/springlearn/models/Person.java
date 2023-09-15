@@ -1,7 +1,10 @@
 package by.Yandr2022.springlearn.models;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.List;
 
 @Entity
 @Table(name="person")
@@ -26,6 +29,20 @@ public class Person {
     @Pattern(regexp = "([A-Z]\\w+, ){2}\\d{6}"
             , message = "Your address should be in this format: Country, City, Postal Code (6 digits)")
     private String address;
+
+    @OneToMany(mappedBy = "owner")
+//    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    private List<Item> items;
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+
 
     public Person() {
 

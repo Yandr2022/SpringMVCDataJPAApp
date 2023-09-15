@@ -28,7 +28,7 @@ public class PeopleService {
         return peopleRepository.findById(id).orElse(null);
     }
     public Optional<Person> findOne(String email) {
-        return peopleRepository.findPeopleByEmail(email);
+        return peopleRepository.findByEmail(email);
     }
 
     @Transactional
@@ -45,5 +45,9 @@ public class PeopleService {
     @Transactional
     public void delete(int id) {
         peopleRepository.deleteById(id);
+    }
+
+    public void  test(){
+        System.out.println("Testing here with debug. Inside Hibernate Transaction");
     }
 }
