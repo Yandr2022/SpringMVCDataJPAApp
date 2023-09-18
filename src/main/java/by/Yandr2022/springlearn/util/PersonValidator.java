@@ -32,6 +32,5 @@ public class PersonValidator implements Validator {
         if (temp.isPresent() && temp.get().getId() != person.getId()) {
             errors.rejectValue("email", "", "This email is already taken");
         }
-
     }
 }

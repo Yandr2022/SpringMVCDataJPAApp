@@ -1,5 +1,6 @@
 package by.Yandr2022.springlearn.controllers;
 
+import by.Yandr2022.springlearn.dao.PersonDAO;
 import by.Yandr2022.springlearn.models.Person;
 import by.Yandr2022.springlearn.services.ItemService;
 import by.Yandr2022.springlearn.services.PeopleService;
@@ -19,21 +20,24 @@ public class PeopleController {
     private final PeopleService peopleService;
     private final ItemService itemService;
     private final PersonValidator personValidator;
+    private final PersonDAO personDAO;
 
     @Autowired
-    public PeopleController(PeopleService peopleService, ItemService itemService, PersonValidator personValidator) {
+    public PeopleController(PeopleService peopleService, ItemService itemService, PersonValidator personValidator
+            , PersonDAO personDAO) {
         this.peopleService = peopleService;
         this.itemService = itemService;
         this.personValidator = personValidator;
+        this.personDAO = personDAO;
     }
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("people", peopleService.findAll());
-
-        itemService.findAllByName("Airpods");
-        itemService.findAllByPerson(peopleService.findAll().get(0));
-        peopleService.test();
+//        model.addAttribute("people", peopleService.findAll());
+personDAO.testNPlus1();
+//        itemService.findAllByName("Airpods"); debug
+//        itemService.findAllByPerson(peopleService.findAll().get(0));
+//        peopleService.test();
         return "people/index";
     }
 
